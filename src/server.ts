@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import { PORT } from './config';
+// initialize database
+import './database';
 
 const app = express();
 
