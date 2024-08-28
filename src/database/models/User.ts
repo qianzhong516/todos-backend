@@ -11,11 +11,22 @@ class UserModel extends Model<
   InferCreationAttributes<UserModel>
 > {
   declare name: string;
+  declare email: string;
 }
 
-export const User = sequelize.define<UserModel>('user', {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
+export const User = sequelize.define<UserModel>(
+  'user',
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
-});
+  {
+    timestamps: false,
+  }
+);
