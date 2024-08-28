@@ -4,7 +4,7 @@ import {
   InferCreationAttributes,
   Model,
 } from 'sequelize';
-import { sequelize } from '..';
+import { sequelize } from '../db';
 
 class ToDoModel extends Model<
   InferAttributes<ToDoModel>,
@@ -14,12 +14,10 @@ class ToDoModel extends Model<
   declare description: string;
   declare isDone: boolean;
   declare isDoneAt: Date;
-  //  declare author: Schema.Types.ObjectId;
   //  declare tag: Schema.Types.ObjectId;
   //  declare toDoList: Schema.Types.ObjectId;
   declare createdAt: Date;
   declare modifiedAt: Date;
-  //  declare modifiedBy: Schema.Types.ObjectId;
 }
 
 export const ToDo = sequelize.define<ToDoModel>('todo', {

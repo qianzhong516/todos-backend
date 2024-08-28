@@ -1,19 +1,14 @@
-import { Sequelize } from 'sequelize';
-import { db } from '../config';
-import * as pg from 'pg';
+import './models'; // initialize models
+import { sequelize } from './db';
 
-export const sequelize = new Sequelize({
-  database: db.name,
-  username: db.user,
-  password: db.password,
-  host: db.host,
-  port: Number(db.port),
-  dialect: 'postgres',
-  dialectModule: pg, // This fixes the error `Please install pg package manually`
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log(
+      'Database connection has been established successfully.'
+    );
+    sequelize.sync({ force: true });
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
