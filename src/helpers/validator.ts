@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { BadRequestError } from '../core/ApiError';
 
 enum VALIDATION_SOURCE {
   BODY = 'body',
@@ -14,6 +15,6 @@ export function validator(
       return next();
     }
     const message = error.errors.map((e) => e.message).join('; ');
-    return next(new Error(message));
+    return next(new BadRequestError(message));
   };
 }

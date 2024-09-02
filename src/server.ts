@@ -1,8 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { PORT } from './config';
+import { env, PORT } from './config';
 // initialize database
 import './database';
 import router from './routes';
+import { ApiError, InternalError } from './core/ApiError';
 
 const app = express();
 app.use(express.json());
@@ -15,7 +16,15 @@ app.get('/', (request: Request, response: Response) => {
 // error middleware handler
 app.use(
   (err: Error, req: Request, res: Response, next: NextFunction) => {
-    return res.status(400).send(err.message);
+    if (err instanceof ApiError) {
+      return ApiError.handle(err, res);
+    } else {
+      if (env === 'development') {
+        return res.status(500).send(err);
+      }
+      // do not expose sensitive error data in production
+      return ApiError.handle(new InternalError(), res);
+    }
   }
 );
 

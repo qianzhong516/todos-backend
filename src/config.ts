@@ -1,4 +1,5 @@
 export const PORT = process.env.PORT;
+export const env = process.env.NODE_ENV;
 
 export const db = {
   name: process.env.DB_NAME || '',
