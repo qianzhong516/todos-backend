@@ -28,6 +28,12 @@ export abstract class ApiResponse {
   }
 }
 
+export class SuccessResponse<T> extends ApiResponse {
+  constructor(message: string, private data: T) {
+    super(ResponseStatus.SUCCESS, message);
+  }
+}
+
 export class BadRequestErrorResponse extends ApiResponse {
   constructor(
     message: string,

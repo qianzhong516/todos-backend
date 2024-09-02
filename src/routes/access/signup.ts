@@ -2,6 +2,7 @@ import express from 'express';
 import { createUser } from '../../database/repository/UserRepo';
 import schema from './schema';
 import { validator } from '../../helpers/validator';
+import { SuccessResponse } from '../../core/ApiResponse';
 
 const router = express.Router();
 
@@ -10,7 +11,10 @@ const router = express.Router();
 router.post('/basic', validator(schema.signup), async (req, res) => {
   const { name, email } = req.body;
   const user = await createUser({ name, email });
-  return res.status(200).send(user);
+
+  return new SuccessResponse('Signup Successful.', {
+    user,
+  }).send(res);
 });
 
 export default router;
