@@ -1,7 +1,7 @@
 import { User } from '../models/User';
 
 export async function createUser(props: {
-  name: string;
+  username: string;
   email: string;
 }) {
   const user = await User.create(props);
