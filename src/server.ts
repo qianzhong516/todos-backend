@@ -2,16 +2,19 @@ import express, { NextFunction, Request, Response } from 'express';
 import { env, PORT } from './config';
 // initialize database
 import './database';
-import router from './routes';
-import { ApiError, InternalError } from './core/ApiError';
+import routes from './routes';
+import {
+  ApiError,
+  InternalError,
+  NotFoundError,
+} from './core/ApiError';
 
 const app = express();
 app.use(express.json());
-app.use('/', router);
+app.use('/', routes);
 
-app.get('/', (request: Request, response: Response) => {
-  return response.status(200).send('Hello World!');
-});
+// catch 404 and forward to error handler
+app.use((req, res, next) => next(new NotFoundError()));
 
 // error middleware handler
 app.use(
@@ -20,7 +23,7 @@ app.use(
       return ApiError.handle(err, res);
     } else {
       if (env === 'development') {
-        return res.status(500).send(err);
+        return ApiError.handle(new InternalError(err.message), res);
       }
       // do not expose sensitive error data in production
       return ApiError.handle(new InternalError(), res);
