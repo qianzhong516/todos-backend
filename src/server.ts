@@ -8,15 +8,18 @@ import {
   InternalError,
   NotFoundError,
 } from './core/ApiError';
-import swaggerSpec from './swagger';
+import swaggerSpec from './swagger.json';
 import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 app.use(express.json());
 app.use('/', routes);
 if (env === 'development') {
-  // swagger Page
+  // swagger docs
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.get('/docs.json', (req, res) => {
+    res.json(swaggerSpec);
+  });
 }
 
 // catch 404 and forward to error handler

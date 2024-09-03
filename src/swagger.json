@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ToDos",
+    "description": "API endpoints for a mini todos app documented on swagger",
+    "contact": {
+      "name": "Janice Zhong",
+      "url": "https://github.com/qianzhong516/todos-backend"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5137/",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/signup/basic": {
+      "post": {
+        "tags": ["User Routes"],
+        "summary": "Sign up",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["username", "email"],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "default": "johndoe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "default": "johndoe@mail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
