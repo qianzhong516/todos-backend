@@ -1,6 +1,7 @@
 import './models'; // initialize models
 import { sequelize } from './db';
 
+// TODO: call sequelize.sync() if the database does not exist.
 sequelize
   .authenticate()
   .then(() => {
