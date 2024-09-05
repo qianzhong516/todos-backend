@@ -16,6 +16,7 @@
     "watch-ts": "tsc -w",
     "upgrade": "npm update --save-dev && npm update --save",
     "upgrade-latest": "npx npm-check-updates -u && npm install",
+    "restart-db": "npm run build && dotenvx run -f .env.local -- node -r dotenv/config build/scripts/db.js",
     "test": "jest --forceExit --detectOpenHandles"
   },
   "repository": {
